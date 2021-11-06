@@ -1,5 +1,5 @@
 import "reflect-metadata";
-// import {createConnection} from "typeorm";
+import {createConnection} from "typeorm";
 // import {User} from "./entity/User";
 import express from 'express';
 import { ApolloServer } from "apollo-server-express";
@@ -17,6 +17,8 @@ import { UserResolver } from "./UserResolver";
             resolvers: [UserResolver]
         }),
     });
+
+    await createConnection();
 
     // NEW compared to Ben's tut
     await apolloServer.start()
