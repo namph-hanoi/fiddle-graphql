@@ -4,6 +4,11 @@ import { hash } from 'bcryptjs'
 
 @Resolver()
 export class UserResolver {
+    @Query(() => String)
+    hello(): string {
+        return 'hello'
+    }
+
     @Query(() => [User])
     getAllUsers() {
         const allUser = User.find();
