@@ -1,11 +1,12 @@
+import "dotenv/config"
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-// import {User} from "./entity/User";
 import express from 'express';
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./UserResolver";
 import { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageDisabled } from 'apollo-server-core';
+import { MyContext } from "./MyContext";
 
 (async () => {
     const app = express();
@@ -17,6 +18,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandi
         schema: await buildSchema({
             resolvers: [UserResolver],
         }),
+        context: ({req, res}: MyContext): MyContext => ({ req, res }),
         plugins: [ApolloServerPluginLandingPageGraphQLPlayground(), ApolloServerPluginLandingPageDisabled()]
     });
     
